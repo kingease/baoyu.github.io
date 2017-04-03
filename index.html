@@ -339,7 +339,8 @@
 <p>在<code>theme</code>文件夹下<code>_config.yml</code>中确保<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">    tags: /tags</div></pre></td></tr></table></figure></p>
 <h2 id="第八（一）步-创建新的blog"><a href="#第八（一）步-创建新的blog" class="headerlink" title="第八（一）步 创建新的blog"></a>第八（一）步 创建新的blog</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new <span class="string">"my blog"</span></div></pre></td></tr></table></figure>
 <p>在<code>tags</code>下以YAML的方式增加标签即可，如<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">tags:</span></div><div class="line"><span class="bullet">    -</span> tag1</div><div class="line"><span class="bullet">    -</span> tag2</div></pre></td></tr></table></figure></p>
-<h2 id="第八（二）步-草稿"><a href="#第八（二）步-草稿" class="headerlink" title="第八（二）步 草稿"></a>第八（二）步 草稿</h2><ol>
+<h2 id="第八（二）步-创建新的blog草稿"><a href="#第八（二）步-创建新的blog草稿" class="headerlink" title="第八（二）步 创建新的blog草稿"></a>第八（二）步 创建新的blog草稿</h2><p>八(一)中的操作是创建直接可以发布的blog，但是有些blog我们可能需要时间完善到一定程度才想把它发布出去，这时草稿就可以为我们所用。我们创建的草稿在<code>deploy</code>时不会被发布出去，直到我们将它<code>publish</code>后它才会被展现出来。</p>
+<ol>
 <li><p>需要创建暂不发布的草稿文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new draft <span class="string">"my new draft"</span></div></pre></td></tr></table></figure>
 </li>
