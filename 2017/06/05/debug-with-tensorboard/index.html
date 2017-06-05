@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="tensorflow,GPU,AWS," />
+  <meta name="keywords" content="tensorflow,debug,tensorboard,batch_normalization," />
 
 
 
@@ -87,49 +87,36 @@
 
 
 
-<meta name="description" content="在AWS上使用GPU?
-确保删除了cpu版的tensorflow， 否则，安装完gpu版后再删除，就会出现不可用的情况
-1sudo `which pip` uninstall tensorflow
-
-安装GPU版的tensorflow
-1sudo `which pip` install -U tensorflow-gpu
-
-查看GPU的使用情况
-1nvidia-smi
-
-
-如何检测机器是否有GPU">
+<meta name="description" content="将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
+这样tensorboard可以生成清晰的模型的数据流图，如下图
+在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
+观察输出定位问题发现RNN的输出始终都是相同的，如下图，对任何输入都是如下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在AWS上如何使用GPU">
-<meta property="og:url" content="http://kingease.github.io/2017/04/30/AWS上如何使用GPU/index.html">
+<meta property="og:title" content="debug with tensorboard">
+<meta property="og:url" content="http://kingease.github.io/2017/06/05/debug-with-tensorboard/index.html">
 <meta property="og:site_name" content="都不重要">
-<meta property="og:description" content="在AWS上使用GPU?
-确保删除了cpu版的tensorflow， 否则，安装完gpu版后再删除，就会出现不可用的情况
-1sudo `which pip` uninstall tensorflow
-
-安装GPU版的tensorflow
-1sudo `which pip` install -U tensorflow-gpu
-
-查看GPU的使用情况
-1nvidia-smi
-
-
-如何检测机器是否有GPU">
-<meta property="og:updated_time" content="2017-04-30T06:42:55.000Z">
+<meta property="og:description" content="将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
+这样tensorboard可以生成清晰的模型的数据流图，如下图
+在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
+观察输出定位问题发现RNN的输出始终都是相同的，如下图，对任何输入都是如下">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/RNN%20output%203000.png?imageMogr2/thumbnail/350x">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage4.png">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage5.png">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage6.png">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage1.png?imageMogr2/thumbnail/350x">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage2.png?imageMogr2/thumbnail/350x">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/cost-curve.png">
+<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/error-curve.png">
+<meta property="og:updated_time" content="2017-06-05T09:11:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在AWS上如何使用GPU">
-<meta name="twitter:description" content="在AWS上使用GPU?
-确保删除了cpu版的tensorflow， 否则，安装完gpu版后再删除，就会出现不可用的情况
-1sudo `which pip` uninstall tensorflow
-
-安装GPU版的tensorflow
-1sudo `which pip` install -U tensorflow-gpu
-
-查看GPU的使用情况
-1nvidia-smi
-
-
-如何检测机器是否有GPU">
+<meta name="twitter:title" content="debug with tensorboard">
+<meta name="twitter:description" content="将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
+这样tensorboard可以生成清晰的模型的数据流图，如下图
+在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
+观察输出定位问题发现RNN的输出始终都是相同的，如下图，对任何输入都是如下">
+<meta name="twitter:image" content="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png">
 
 
 
@@ -157,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://kingease.github.io/2017/04/30/AWS上如何使用GPU/"/>
+  <link rel="canonical" href="http://kingease.github.io/2017/06/05/debug-with-tensorboard/"/>
 
 
 
 
 
-  <title> 在AWS上如何使用GPU | 都不重要 </title>
+  <title> debug with tensorboard | 都不重要 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +269,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://kingease.github.io/2017/04/30/AWS上如何使用GPU/">
+    <link itemprop="mainEntityOfPage" href="http://kingease.github.io/2017/06/05/debug-with-tensorboard/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Young Lee">
@@ -303,7 +290,7 @@
             
             
               
-                在AWS上如何使用GPU
+                debug with tensorboard
               
             
           </h1>
@@ -318,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-30T14:24:25+08:00">
-                2017-04-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-05T17:11:38+08:00">
+                2017-06-05
               </time>
             
 
@@ -354,18 +341,30 @@
       
 
       
-        <h2 id="在AWS上使用GPU"><a href="#在AWS上使用GPU" class="headerlink" title="在AWS上使用GPU?"></a>在AWS上使用GPU?</h2><ol>
-<li><p>确保删除了cpu版的tensorflow， 否则，安装完gpu版后再删除，就会出现不可用的情况</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo `<span class="built_in">which</span> pip` uninstall tensorflow</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装GPU版的tensorflow</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo `<span class="built_in">which</span> pip` install -U tensorflow-gpu</div></pre></td></tr></table></figure>
-</li>
-<li><p>查看GPU的使用情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvidia-smi</div></pre></td></tr></table></figure>
-</li>
+        <h2 id="将网络规则化"><a href="#将网络规则化" class="headerlink" title="将网络规则化"></a>将网络规则化</h2><p>首先要对各个层，赋予有意义的<code>name_scope</code>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with tf.name_scope(&quot;inputs_images&quot;):</div><div class="line">    ....</div></pre></td></tr></table></figure></p>
+<p>这样tensorboard可以生成清晰的模型的数据流图，如下图<br><img src="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png" alt="rnn+ctc model graph"></p>
+<h2 id="在我们关注的地方加入输出"><a href="#在我们关注的地方加入输出" class="headerlink" title="在我们关注的地方加入输出"></a>在我们关注的地方加入输出</h2><p>整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下</p>
+<h2 id="观察输出定位问题"><a href="#观察输出定位问题" class="headerlink" title="观察输出定位问题"></a>观察输出定位问题</h2><p>发现RNN的输出始终都是相同的，如下图，对任何输入都是如下图的模样：<br><img src="http://oor53bfqy.bkt.clouddn.com/RNN%20output%203000.png?imageMogr2/thumbnail/350x" alt="rnn output image"></p>
+<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><ol>
+<li>RNN层增加<code>dropout</code>发现效果没有改变。 </li>
+<li>RNN层的初始化有问题，输入对RNN层而言，似乎没有差别，不然输出怎么没有区别？</li>
 </ol>
-<h2 id="如何检测机器是否有GPU支持"><a href="#如何检测机器是否有GPU支持" class="headerlink" title="如何检测机器是否有GPU支持?"></a>如何检测机器是否有GPU支持?</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</div><div class="line">gpu_dev_name = tf.test.gpu_device_name()</div><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> gpu_dev_name:</div><div class="line">    print(<span class="string">"Default GPU Device:&#123;&#125;"</span>.format(gpu_dev_name))</div></pre></td></tr></table></figure>
+<p>沿着这个角度想，使用了batch_normalization的处理，可没有效果。后来发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.layers.batch_normalization(gray_images)</div></pre></td></tr></table></figure></p>
+<p>应该改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.layers.batch_normalization(gray_images, training=True)</div></pre></td></tr></table></figure></p>
+<p>模型终于在迭代的过程中出现变化。<br>有一篇文章在说这个问题。<a href="https://r2rt.com/implementing-batch-normalization-in-tensorflow.html" target="_blank" rel="external">https://r2rt.com/implementing-batch-normalization-in-tensorflow.html</a></p>
+<p>training == True: normalized with statistics of the current batch<br>training == False: normalized with <code>moving statistics</code></p>
+<p>三个不同的输入</p>
+<p><figure style="display: flex;"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage4.png"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage5.png"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage6.png"><br></figure><br>RNN层的输出变成这个样子：<br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage1.png?imageMogr2/thumbnail/350x" alt="rnn output image 1"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage2.png?imageMogr2/thumbnail/350x" alt="rnn output image 2"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x" alt="rnn output image 3"></p>
+<h2 id="变化的结果"><a href="#变化的结果" class="headerlink" title="变化的结果"></a>变化的结果</h2><p>在迭代数个周期后，终于有了效果：cost开始减少, 呈现收敛的状态。<br><img src="http://oor53bfqy.bkt.clouddn.com/cost-curve.png" alt="cost decrease"></p>
+<p>error 也逐渐变得很小，也就是正确率可以变得很高。<br><img src="http://oor53bfqy.bkt.clouddn.com/error-curve.png" alt="error decrease"></p>
+<h2 id="仍然存在的问题"><a href="#仍然存在的问题" class="headerlink" title="仍然存在的问题"></a>仍然存在的问题</h2><ol>
+<li>感觉有很强烈的台阶感，中间迭代的部分下降很缓慢。</li>
+<li>初始化的过程，影响结果。</li>
+<li>对batch_normalization还不是太了解。</li>
+<li>如何区分 training 为 True 或 False 的使用。</li>
+<li>保存模型。</li>
+<li>使用CNN对输入图像做特征的处理。</li>
+</ol>
 
       
     </div>
@@ -397,9 +396,11 @@
           
             <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
           
-            <a href="/tags/GPU/" rel="tag"># GPU</a>
+            <a href="/tags/debug/" rel="tag"># debug</a>
           
-            <a href="/tags/AWS/" rel="tag"># AWS</a>
+            <a href="/tags/tensorboard/" rel="tag"># tensorboard</a>
+          
+            <a href="/tags/batch-normalization/" rel="tag"># batch_normalization</a>
           
         </div>
       
@@ -412,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/04/meaning-of-writing/" rel="next" title="习作的意义">
-                <i class="fa fa-chevron-left"></i> 习作的意义
+              <a href="/2017/04/30/AWS上如何使用GPU/" rel="next" title="在AWS上如何使用GPU">
+                <i class="fa fa-chevron-left"></i> 在AWS上如何使用GPU
               </a>
             
           </div>
@@ -421,10 +422,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/05/debug-with-tensorboard/" rel="prev" title="debug with tensorboard">
-                debug with tensorboard <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -544,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在AWS上使用GPU"><span class="nav-number">1.</span> <span class="nav-text">在AWS上使用GPU?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测机器是否有GPU支持"><span class="nav-number">2.</span> <span class="nav-text">如何检测机器是否有GPU支持?</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#将网络规则化"><span class="nav-number">1.</span> <span class="nav-text">将网络规则化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在我们关注的地方加入输出"><span class="nav-number">2.</span> <span class="nav-text">在我们关注的地方加入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察输出定位问题"><span class="nav-number">3.</span> <span class="nav-text">观察输出定位问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整"><span class="nav-number">4.</span> <span class="nav-text">调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变化的结果"><span class="nav-number">5.</span> <span class="nav-text">变化的结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仍然存在的问题"><span class="nav-number">6.</span> <span class="nav-text">仍然存在的问题</span></a></li></ol></div>
             
 
           </div>
