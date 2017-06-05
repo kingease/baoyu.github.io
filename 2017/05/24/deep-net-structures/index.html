@@ -1,0 +1,853 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tensorflow,deep learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="deep net 的 组成
+inputs
+model_layers
+loss
+optimizer
+graph
+session
+
+Inputs其实inputs 可以看成layer的一种特殊情况，但是由于它的地位很特殊，我们单独将它抽出来，单独讨论。TF中常使用的tf.placeholders()来定义输入层。
+
+图像
+
+固定图片的长度、宽度和深度 1tf.placeholders(tf.float3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deep net structures">
+<meta property="og:url" content="http://kingease.github.io/2017/05/24/deep-net-structures/index.html">
+<meta property="og:site_name" content="都不重要">
+<meta property="og:description" content="deep net 的 组成
+inputs
+model_layers
+loss
+optimizer
+graph
+session
+
+Inputs其实inputs 可以看成layer的一种特殊情况，但是由于它的地位很特殊，我们单独将它抽出来，单独讨论。TF中常使用的tf.placeholders()来定义输入层。
+
+图像
+
+固定图片的长度、宽度和深度 1tf.placeholders(tf.float3">
+<meta property="og:updated_time" content="2017-06-05T09:40:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="deep net structures">
+<meta name="twitter:description" content="deep net 的 组成
+inputs
+model_layers
+loss
+optimizer
+graph
+session
+
+Inputs其实inputs 可以看成layer的一种特殊情况，但是由于它的地位很特殊，我们单独将它抽出来，单独讨论。TF中常使用的tf.placeholders()来定义输入层。
+
+图像
+
+固定图片的长度、宽度和深度 1tf.placeholders(tf.float3">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://kingease.github.io/2017/05/24/deep-net-structures/"/>
+
+
+
+
+
+  <title> deep net structures | 都不重要 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">都不重要</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Young</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://kingease.github.io/2017/05/24/deep-net-structures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Young Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="都不重要">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                deep net structures
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T00:00:00+08:00">
+                2017-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="deep-net-的-组成"><a href="#deep-net-的-组成" class="headerlink" title="deep net 的 组成"></a>deep net 的 组成</h1><ol>
+<li>inputs</li>
+<li>model_layers</li>
+<li>loss</li>
+<li>optimizer</li>
+<li>graph</li>
+<li>session</li>
+</ol>
+<h2 id="Inputs"><a href="#Inputs" class="headerlink" title="Inputs"></a>Inputs</h2><p>其实inputs 可以看成layer的一种特殊情况，但是由于它的地位很特殊，我们单独将它抽出来，单独讨论。TF中常使用的<code>tf.placeholders()</code>来定义输入层。</p>
+<ol>
+<li><p>图像</p>
+<ol>
+<li>固定图片的长度、宽度和深度 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.placeholders(tf.float32, [None, width, height, channels])</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>声音<br>1. </p>
+</li>
+<li><p>文字</p>
+<ol>
+<li><p>一般文字的处理方法 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.placeholder(tf.int32, [batch_size, sequence_length])</div></pre></td></tr></table></figure>
+<p>batch_size: None # 一般由输入的数据决定<br>sequence_length: None # 一般由输入的数据决定</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="ModelLayers"><a href="#ModelLayers" class="headerlink" title="ModelLayers"></a>ModelLayers</h2><p>构成 graph 的基础构件，常用的 layer 的概念有：</p>
+<ol>
+<li>dense/fully-connected layer (activation=None/RELU/sigmoid)</li>
+<li>reshape layer</li>
+<li>drop layer</li>
+<li>conv2d layer</li>
+<li>pooling layer</li>
+<li>rnn layer</li>
+<li>merge layer</li>
+<li>embedded layer</li>
+<li>encode layer</li>
+<li>decode layer</li>
+<li>activation layer</li>
+<li>batch_normalization layer</li>
+</ol>
+<h3 id="SubLayers"><a href="#SubLayers" class="headerlink" title="SubLayers"></a>SubLayers</h3><ol>
+<li>LSTM cell layer</li>
+<li>Multi LSTM cells layer</li>
+</ol>
+<h3 id="CombinedLayers"><a href="#CombinedLayers" class="headerlink" title="CombinedLayers"></a>CombinedLayers</h3><ol>
+<li>卷积层</li>
+<li>输出层</li>
+<li>嵌入层</li>
+<li>RNN层</li>
+<li>转换层 (convert to target num_class dim)</li>
+</ol>
+<h4 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h4><p>和转换层一样，但是从意义上可以分开<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.layers.dense(x, num_class, activation=None)</div></pre></td></tr></table></figure></p>
+<h4 id="RNN层"><a href="#RNN层" class="headerlink" title="RNN层"></a>RNN层</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># num_units:num_units是隐含层的维度（又称为num_hidden）</div><div class="line"># 如果参数num_proj不设置，那么num_units也是输出数据的维度，即 cell.output_size，见下 outputs 结构。</div><div class="line">cell = tf.contrib.rnn.BasicLSTMCell(num_units)</div><div class="line"></div><div class="line"># num_layers: cell叠加的层数</div><div class="line">stack = tf.contrib.rnn.MultiRNNCell([cell] * num_layers)</div><div class="line"></div><div class="line"># 构成有输入输出的RNN层</div><div class="line">outputs, _ = tf.nn.dynamic_rnn(</div><div class="line">    cell(stack): SubLayer, # 较为固定</div><div class="line">    sequence_length: Inputs, # RNN展开的次数 较为固定</div><div class="line">    dtype: tf.float32, # 输出的类型</div><div class="line"></div><div class="line">    inputs: ModelLayer/Inputs, # 通常来自嵌入层、图像展开层, 结构维度是[batch_size, max_time, num_features]</div><div class="line">        batch_size(不解释)</div><div class="line">        max_time(应该==sequence_length)</div><div class="line">        num_feature(是输入特征的维数)</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>如果inputs的类型是Inputs，那么它的定义是这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tf.placeholder(tf.float32, [None, None, num_features])</div><div class="line"># batch, num_step 由实际的传入的数据决定</div></pre></td></tr></table></figure></p>
+<p>output的数据结构是怎样的呢？<br>默认的是 [batch_size, max_time, cell.output_size]，其中，<br>    cell.output_size（== cell.num_proj if num_proj was set, num_units otherwise.）</p>
+<h4 id="转换层"><a href="#转换层" class="headerlink" title="转换层"></a>转换层</h4><p>将输入的 tensor [batch_size, num_dim] 转换成指定维度的 logits [batch_size, num_class], 线性输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.layers.dense(x, num_class, activation=None)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如何将RNN输出的[batch_size, max_time, num_units] 转换成 [batch_size, max_time, num_classes]?</p>
+</blockquote>
+<ol>
+<li>先将 <code>t1 = tf.reshape(tensor, [-1, num_units])</code></li>
+<li>再将 <code>t2 = tf.layers.dense(t1, num_classes, activation=None)</code></li>
+<li>最后 <code>t3 = tf.reshape(t2, [batch_size, max_time, num_classes])</code></li>
+</ol>
+<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><ol>
+<li>cross entrophy</li>
+<li>ctc </li>
+</ol>
+<h3 id="ctc-loss"><a href="#ctc-loss" class="headerlink" title="ctc loss"></a>ctc loss</h3><blockquote>
+<p>RNN的展开的次数（times）如果大的话，下降的速度会变慢？</p>
+</blockquote>
+<p>ctc 的 loss 下降非常非常缓慢。<br>现在观察到的现象是， 以列像素为特征，直接交给RNN, 输出分类后，然后再交给ctc，会发现，先找对匹配的个数， 然后才是内容。</p>
+<p>目前看到的 ctc loss 的教程都来自 <code>https://github.com/igormq/ctc_tensorflow_example</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">loss = tf.nn.ctc_loss(</div><div class="line">    labels: Inputs, # `tf.sparse_placeholder(tf.int32)`, # 目标标签的占位,固定不变</div><div class="line">    sequence_length: Inputs, # `tf.placeholder(int32,[batch_size])`,  # batch_size=None,固定不变</div><div class="line"></div><div class="line">    inputs: ModelLayer, # 通常是输出层给出的logits, 结构维度应该是[max_time, batch_size, num_classes]</div><div class="line">        max_time（最大的序列，应该==sequence_length）</div><div class="line">        num_classes（应该==(num_labels + 1), num_labels 为空标签（新增）保留。 ）</div><div class="line">        num_labels（子标签的种类数量）</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>ctc loss 是解决序列中间添加空白标签和重复标签时，预测和目标之间的损失函数。 所以，它最终将问题转化为<code>多个</code> <code>多标签</code>的预测， 只是要预测足够多的steps, 然后在steps做合并组合，并计算损失。</p>
+<p>logits的结构，给我们最大的启示是：我们需要生成<code>[max_time, num_classes]</code>个回归结果。 因为ctc loss 通常和RNN配合使用，所以，这里应该有<code>max_time == seq_len</code>。</p>
+<blockquote>
+<p>如何生成[max_time, num_classes]个logits结果?</p>
+</blockquote>
+<p>参考<a href="#RNN层">RNN层</a>，<a href="#转换层">转换层</a></p>
+<blockquote>
+<p>假设目标是一串字母和数字，如何生成labels的这样的输入数据呢？</p>
+</blockquote>
+<ol>
+<li><p>一个batch的数据初始看来是这样的</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">labels = [&apos;abcd&apos;,&apos;12ab.34&apos;,...,&apos;y1234&apos;] # len(labels) == batch_size</div></pre></td></tr></table></figure>
+</li>
+<li><p>将每个串映射成整数数组</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">labels = [[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;],</div><div class="line">          [&apos;1&apos;,&apos;2&apos;,&apos;a&apos;,&apos;b&apos;,&apos;.&apos;,&apos;3&apos;, &apos;4&apos;],</div><div class="line">          ...</div><div class="line">          [&apos;y&apos;,&apos;1&apos;,&apos;2&apos;,&apos;3&apos;,&apos;4&apos;]]</div></pre></td></tr></table></figure>
+<p> 通过label字典<code>{&#39;a&#39;:0,&#39;b&#39;:1,&#39;c&#39;:2,&#39;d&#39;:3,&#39;1&#39;:4,&#39;2&#39;:5,&#39;.&#39;:6,&#39;3&#39;:7,&#39;4&#39;:8,&#39;y&#39;:9}</code>将字符映射成整数tf.int32，那么labels就变成：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">labels =[[0, 1, 2, 3],</div><div class="line">         [4, 5, 0, 1, 6, 7, 8],</div><div class="line">         ...</div><div class="line">         [9, 4, 5, 7, 8]]</div></pre></td></tr></table></figure>
+</li>
+<li><p>转换成单一数组和在batch中位置索引组合的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">indices, values = [], []</div><div class="line">for n, seq in enumerate(labels):</div><div class="line">    indices.extend(zip([n]*len(seq), range(len(seq))))</div><div class="line">    values.extend(seq)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>values是将所有的值放到一个数组里<code>[0,1,2,3,4,5,0,1,6,7,8,...,9,4,5,7,8]</code><br>indexes是将他在batch中对应的位置<code>[(0,0),(0,1),(0,2),...,(batch_size-1, 0),..,(batch_size-1,4)]</code></p>
+<p>使用下面的函数可直接得到<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sparse_tuple_from</span><span class="params">(sequences, dtype=np.int32)</span>:</span></div><div class="line">    <span class="string">"""Create a sparse representention of x.</span></div><div class="line">    Args:</div><div class="line">        sequences: a list of lists of type dtype where each element is a sequence</div><div class="line">    Returns:</div><div class="line">        A tuple with (indices, values, shape)</div><div class="line">    """</div><div class="line">    indices = []</div><div class="line">    values = []</div><div class="line"></div><div class="line">    <span class="keyword">for</span> n, seq <span class="keyword">in</span> enumerate(sequences):</div><div class="line">        indices.extend(zip([n] * len(seq), xrange(len(seq))))</div><div class="line">        values.extend(seq)</div><div class="line"></div><div class="line">    indices = np.asarray(indices, dtype=np.int64)</div><div class="line">    values = np.asarray(values, dtype=dtype)</div><div class="line">    shape = np.asarray([len(sequences), np.asarray(indices).max(<span class="number">0</span>)[<span class="number">1</span>] + <span class="number">1</span>], dtype=np.int64)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> indices, values, shape</div></pre></td></tr></table></figure></p>
+<h2 id="optimizer"><a href="#optimizer" class="headerlink" title="optimizer"></a>optimizer</h2><ol>
+<li>tf.reduce_*</li>
+<li>tf.optimizer</li>
+</ol>
+<h2 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h2><p>graph 是将 <code>inputs</code>, <code>model</code>, <code>loss</code>, <code>optimizer</code> 组合在一起的组件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">graph = tf.Graph()</div><div class="line">with graph.as_default():</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>这个部分有一个重要的部分就是batch的生成。</p>
+<p>同一个batch的数据结构维度都需要是一致。</p>
+<h3 id="Session-是-tensorflow-到-标准环境的转换"><a href="#Session-是-tensorflow-到-标准环境的转换" class="headerlink" title="Session 是 tensorflow 到 标准环境的转换"></a>Session 是 tensorflow 到 标准环境的转换</h3><p>比方说，如果我们想打印某个tensorflow的值，直接print是不可以的。必须通过session的转换才可以。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 先输出</span></div><div class="line">expr_out = sess.run([express], feed)</div><div class="line"><span class="comment"># 才能打印</span></div><div class="line">print(expr_out)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如何构造Inputs定义的结构？</p>
+</blockquote>
+<p>例如，将图像作为RNN输入<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.placeholders(tf.float32, [batch_size, max_step, num_feature])</div></pre></td></tr></table></figure></p>
+<p>batch_size: None    # 批次数量的多少， 由输入的数量决定<br>max_step: None      # 与图像width正相关的一个值, 可以是图像的高度， 由输入的数量决定<br>num_feature: 固定值  # 可以是图像的高度， 固定，不可改变，输入的任何数据都不能改变</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><blockquote>
+<p>如何生成 文字图像数据 和 文字标签数据 为 RNN 和 ctc-loss 生成输入数据？</p>
+</blockquote>
+<ol>
+<li>首先，按直觉生成一个图像加一个文字串。</li>
+<li>生成 一个batch的图像数组和文字串数组。</li>
+<li>将图像数组转换成</li>
+</ol>
+<h1 id="train-和-infer"><a href="#train-和-infer" class="headerlink" title="train 和 infer"></a>train 和 infer</h1><h2 id="train"><a href="#train" class="headerlink" title="train"></a>train</h2><h2 id="infer"><a href="#infer" class="headerlink" title="infer"></a>infer</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/30/AWS上如何使用GPU/" rel="next" title="在AWS上如何使用GPU">
+                <i class="fa fa-chevron-left"></i> 在AWS上如何使用GPU
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/05/debug-with-tensorboard/" rel="prev" title="debug with tensorboard">
+                debug with tensorboard <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Young Lee" />
+          <p class="site-author-name" itemprop="name">Young Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#deep-net-的-组成"><span class="nav-number">1.</span> <span class="nav-text">deep net 的 组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inputs"><span class="nav-number">1.1.</span> <span class="nav-text">Inputs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ModelLayers"><span class="nav-number">1.2.</span> <span class="nav-text">ModelLayers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SubLayers"><span class="nav-number">1.2.1.</span> <span class="nav-text">SubLayers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CombinedLayers"><span class="nav-number">1.2.2.</span> <span class="nav-text">CombinedLayers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输出层"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">输出层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RNN层"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">RNN层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换层"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">转换层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss"><span class="nav-number">1.3.</span> <span class="nav-text">Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ctc-loss"><span class="nav-number">1.3.1.</span> <span class="nav-text">ctc loss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optimizer"><span class="nav-number">1.4.</span> <span class="nav-text">optimizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Graph"><span class="nav-number">1.5.</span> <span class="nav-text">Graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">1.6.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-是-tensorflow-到-标准环境的转换"><span class="nav-number">1.6.1.</span> <span class="nav-text">Session 是 tensorflow 到 标准环境的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例"><span class="nav-number">1.6.2.</span> <span class="nav-text">案例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#train-和-infer"><span class="nav-number">2.</span> <span class="nav-text">train 和 infer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#train"><span class="nav-number">2.1.</span> <span class="nav-text">train</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#infer"><span class="nav-number">2.2.</span> <span class="nav-text">infer</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Young Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
