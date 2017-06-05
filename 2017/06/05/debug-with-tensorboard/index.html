@@ -87,18 +87,20 @@
 
 
 
-<meta name="description" content="将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
+<meta name="description" content="(still working)
+将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
 这样tensorboard可以生成清晰的模型的数据流图，如下图
 在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
-观察输出定位问题发现RNN的输出始终都是相同的，如下图，对任何输入都是如下">
+观察输出定位问题发现RNN的输出始终都是相">
 <meta property="og:type" content="article">
 <meta property="og:title" content="debug with tensorboard">
 <meta property="og:url" content="http://kingease.github.io/2017/06/05/debug-with-tensorboard/index.html">
 <meta property="og:site_name" content="都不重要">
-<meta property="og:description" content="将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
+<meta property="og:description" content="(still working)
+将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
 这样tensorboard可以生成清晰的模型的数据流图，如下图
 在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
-观察输出定位问题发现RNN的输出始终都是相同的，如下图，对任何输入都是如下">
+观察输出定位问题发现RNN的输出始终都是相">
 <meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png">
 <meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/RNN%20output%203000.png?imageMogr2/thumbnail/350x">
 <meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage4.png">
@@ -109,13 +111,14 @@
 <meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x">
 <meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/cost-curve.png">
 <meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/error-curve.png">
-<meta property="og:updated_time" content="2017-06-05T09:11:38.000Z">
+<meta property="og:updated_time" content="2017-06-05T09:18:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="debug with tensorboard">
-<meta name="twitter:description" content="将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
+<meta name="twitter:description" content="(still working)
+将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
 这样tensorboard可以生成清晰的模型的数据流图，如下图
 在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
-观察输出定位问题发现RNN的输出始终都是相同的，如下图，对任何输入都是如下">
+观察输出定位问题发现RNN的输出始终都是相">
 <meta name="twitter:image" content="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png">
 
 
@@ -341,7 +344,8 @@
       
 
       
-        <h2 id="将网络规则化"><a href="#将网络规则化" class="headerlink" title="将网络规则化"></a>将网络规则化</h2><p>首先要对各个层，赋予有意义的<code>name_scope</code>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with tf.name_scope(&quot;inputs_images&quot;):</div><div class="line">    ....</div></pre></td></tr></table></figure></p>
+        <p>(still working)</p>
+<h2 id="将网络规则化"><a href="#将网络规则化" class="headerlink" title="将网络规则化"></a>将网络规则化</h2><p>首先要对各个层，赋予有意义的<code>name_scope</code>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with tf.name_scope(&quot;inputs_images&quot;):</div><div class="line">    ....</div></pre></td></tr></table></figure></p>
 <p>这样tensorboard可以生成清晰的模型的数据流图，如下图<br><img src="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png" alt="rnn+ctc model graph"></p>
 <h2 id="在我们关注的地方加入输出"><a href="#在我们关注的地方加入输出" class="headerlink" title="在我们关注的地方加入输出"></a>在我们关注的地方加入输出</h2><p>整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下</p>
 <h2 id="观察输出定位问题"><a href="#观察输出定位问题" class="headerlink" title="观察输出定位问题"></a>观察输出定位问题</h2><p>发现RNN的输出始终都是相同的，如下图，对任何输入都是如下图的模样：<br><img src="http://oor53bfqy.bkt.clouddn.com/RNN%20output%203000.png?imageMogr2/thumbnail/350x" alt="rnn output image"></p>
