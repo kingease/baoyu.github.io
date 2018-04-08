@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/handwriting_recognition.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/speech_recognition.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/naive_alignment.svg">
-<meta property="og:updated_time" content="2018-04-06T13:57:17.000Z">
+<meta property="og:updated_time" content="2018-04-08T01:20:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用CTC进行序列建模">
 <meta name="twitter:description" content="介绍考虑语音识别问题。我们有音频剪辑的数据集以及对应的文字脚本。不幸的是，我们不知道文字脚本中的字符和音频如何对应起来。这使得训练一个语音识别器要比我们起初想象的要难。
@@ -382,7 +382,10 @@
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>对给定的$X$，CTC算法可以给出任意$Y$的概率值。CTC计算概率的关键是考虑输入和输出间如何进行对齐。我们先探讨如何进行对齐，然后再说明如何使用对齐的概念来计算损失函数以及进行推断的。</p>
 <h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p>CTC算法是不需要输入和输出数据间的对齐信息。但是，要在给定的输入下给出一个输出的概率， CTC需要累加所有输入输出可能的对齐操作的概率。我们需要知道对齐的概念最终帮助我们理解损失函数是如何计算的。</p>
 <p>在引入具体的形式的CTC算法前，我们先考虑一种原始的方法。我们用一个例子来说明,假设输入的数据的长度为6而输出是$Y=[c,a,t]$，有3个字符。对齐$X$和$Y$的方式是对每一步输入都赋予一个输出的字符，输出的结果是合并重复的字符。<br><img src="https://distill.pub/2017/ctc/assets/naive_alignment.svg" style="border: none; display: block;margin-left: auto;margin-right: auto;"></p>
-<h3 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h3><hr>
+<p>这个方法存在两个问题：</p>
+<p>第一，它必须要每一个输入步都要对起到某些输出上，这不太合理。在语音识别方面，例如，输入可能会有没有对应输出的无声状态。</p>
+<p>第二，如果，在有一行中有多个字符的情况下，我们可能无法获得输出。考虑对齐$[h, h, e, l, l, l, o]$,合并重复的结果是”$helo$”而不是”$hello$”</p>
+<hr>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://distill.pub/2017/ctc/" target="_blank" rel="external">https://distill.pub/2017/ctc/</a></li>
 </ol>
@@ -563,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对齐"><span class="nav-number">2.1.</span> <span class="nav-text">对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slot"><span class="nav-number">2.2.</span> <span class="nav-text">slot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对齐"><span class="nav-number">2.1.</span> <span class="nav-text">对齐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
