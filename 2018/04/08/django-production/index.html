@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="tensorflow,debug,tensorboard,batch_normalization," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -87,39 +87,16 @@
 
 
 
-<meta name="description" content="(still working)
-将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
-这样tensorboard可以生成清晰的模型的数据流图，如下图
-在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
-观察输出定位问题发现RNN的输出始终都是相">
+<meta name="description" content="Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用tensorboard进行debug">
-<meta property="og:url" content="http://kingease.github.io/2017/06/05/debug-with-tensorboard/index.html">
+<meta property="og:title" content="Django系列：生产环境下django和wsgi">
+<meta property="og:url" content="http://kingease.github.io/2018/04/08/django-production/index.html">
 <meta property="og:site_name" content="都不重要">
-<meta property="og:description" content="(still working)
-将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
-这样tensorboard可以生成清晰的模型的数据流图，如下图
-在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
-观察输出定位问题发现RNN的输出始终都是相">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/RNN%20output%203000.png?imageMogr2/thumbnail/350x">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage4.png">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage5.png">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage6.png">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage1.png?imageMogr2/thumbnail/350x">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage2.png?imageMogr2/thumbnail/350x">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/cost-curve.png">
-<meta property="og:image" content="http://oor53bfqy.bkt.clouddn.com/error-curve.png">
-<meta property="og:updated_time" content="2018-03-28T04:30:30.000Z">
+<meta property="og:description" content="Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a">
+<meta property="og:updated_time" content="2018-04-08T09:56:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用tensorboard进行debug">
-<meta name="twitter:description" content="(still working)
-将网络规则化首先要对各个层，赋予有意义的name_scope，如12with tf.name_scope(&amp;quot;inputs_images&amp;quot;):    ....
-这样tensorboard可以生成清晰的模型的数据流图，如下图
-在我们关注的地方加入输出整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下
-观察输出定位问题发现RNN的输出始终都是相">
-<meta name="twitter:image" content="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png">
+<meta name="twitter:title" content="Django系列：生产环境下django和wsgi">
+<meta name="twitter:description" content="Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a">
 
 
 
@@ -147,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://kingease.github.io/2017/06/05/debug-with-tensorboard/"/>
+  <link rel="canonical" href="http://kingease.github.io/2018/04/08/django-production/"/>
 
 
 
 
 
-  <title> 使用tensorboard进行debug | 都不重要 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Django系列：生产环境下django和wsgi | 都不重要 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://kingease.github.io/2017/06/05/debug-with-tensorboard/">
+    <link itemprop="mainEntityOfPage" href="http://kingease.github.io/2018/04/08/django-production/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Young Lee">
@@ -303,7 +280,7 @@
             
             
               
-                使用tensorboard进行debug
+                Django系列：生产环境下django和wsgi
               
             
           </h1>
@@ -318,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-05T17:11:38+08:00">
-                2017-06-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:59:21+08:00">
+                2018-04-08
               </time>
             
 
@@ -328,6 +305,39 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/django/" itemprop="url" rel="index">
+                    <span itemprop="name">django</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/django/deployment/" itemprop="url" rel="index">
+                    <span itemprop="name">deployment</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -354,30 +364,16 @@
       
 
       
-        <p>(still working)</p>
-<h2 id="将网络规则化"><a href="#将网络规则化" class="headerlink" title="将网络规则化"></a>将网络规则化</h2><p>首先要对各个层，赋予有意义的<code>name_scope</code>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with tf.name_scope(&quot;inputs_images&quot;):</div><div class="line">    ....</div></pre></td></tr></table></figure></p>
-<p>这样tensorboard可以生成清晰的模型的数据流图，如下图<br><img src="http://oor53bfqy.bkt.clouddn.com/graph-run-version-01.png" alt="rnn+ctc model graph"></p>
-<h2 id="在我们关注的地方加入输出"><a href="#在我们关注的地方加入输出" class="headerlink" title="在我们关注的地方加入输出"></a>在我们关注的地方加入输出</h2><p>整个模型跑起来的，但是效果非常的糟糕,cost的值据高不下</p>
-<h2 id="观察输出定位问题"><a href="#观察输出定位问题" class="headerlink" title="观察输出定位问题"></a>观察输出定位问题</h2><p>发现RNN的输出始终都是相同的，如下图，对任何输入都是如下图的模样：<br><img src="http://oor53bfqy.bkt.clouddn.com/RNN%20output%203000.png?imageMogr2/thumbnail/350x" alt="rnn output image"></p>
-<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><ol>
-<li>RNN层增加<code>dropout</code>发现效果没有改变。 </li>
-<li>RNN层的初始化有问题，输入对RNN层而言，似乎没有差别，不然输出怎么没有区别？</li>
-</ol>
-<p>沿着这个角度想，使用了batch_normalization的处理，可没有效果。后来发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.layers.batch_normalization(gray_images)</div></pre></td></tr></table></figure></p>
-<p>应该改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tf.layers.batch_normalization(gray_images, training=True)</div></pre></td></tr></table></figure></p>
-<p>模型终于在迭代的过程中出现变化。<br>有一篇文章在说这个问题。<a href="https://r2rt.com/implementing-batch-normalization-in-tensorflow.html" target="_blank" rel="external">https://r2rt.com/implementing-batch-normalization-in-tensorflow.html</a></p>
-<p>training == True: normalized with statistics of the current batch<br>training == False: normalized with <code>moving statistics</code></p>
-<p>三个不同的输入</p>
-<p><figure style="display: flex;"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage4.png"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage5.png"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage6.png"><br></figure><br>RNN层的输出变成这个样子：<br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage1.png?imageMogr2/thumbnail/350x" alt="rnn output image 1"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage2.png?imageMogr2/thumbnail/350x" alt="rnn output image 2"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x" alt="rnn output image 3"></p>
-<h2 id="变化的结果"><a href="#变化的结果" class="headerlink" title="变化的结果"></a>变化的结果</h2><p>在迭代数个周期后，终于有了效果：cost开始减少, 呈现收敛的状态。<br><img src="http://oor53bfqy.bkt.clouddn.com/cost-curve.png" alt="cost decrease"></p>
-<p>error 也逐渐变得很小，也就是正确率可以变得很高。<br><img src="http://oor53bfqy.bkt.clouddn.com/error-curve.png" alt="error decrease"></p>
-<h2 id="仍然存在的问题"><a href="#仍然存在的问题" class="headerlink" title="仍然存在的问题"></a>仍然存在的问题</h2><ol>
-<li>感觉有很强烈的台阶感，中间迭代的部分下降很缓慢。</li>
-<li>初始化的过程，影响结果。</li>
-<li>对batch_normalization还不是太了解。</li>
-<li>如何区分 training 为 True 或 False 的使用。</li>
-<li>保存模型。</li>
-<li>使用CNN对输入图像做特征的处理。</li>
+        <p>Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a major goal.</p>
+<p>Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。</p>
+<h2 id="项目侧准备"><a href="#项目侧准备" class="headerlink" title="项目侧准备"></a>项目侧准备</h2><p>Django’s startproject management command sets up a simple default WSGI configuration for you, which you can tweak as needed for your project, and direct any WSGI-compliant application server to use.<br>Django的<code>startproject</code>管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改</p>
+<h2 id="使用Apache和mod-wsgi"><a href="#使用Apache和mod-wsgi" class="headerlink" title="使用Apache和mod_wsgi"></a>使用Apache和<strong>mod_wsgi</strong></h2><p>如果你对部署Django是新手，推荐首先使用<code>mod_wsgi</code>。在大多数情况下，它是最简单、最快速和最稳定的部署选择。</p>
+<p>Django包含一个轻量级的web server，仅仅为了测试而用。所以，如果你不打算部署生产级别的Django，你不需要搭建Apache服务器。</p>
+<p>如果你想让Django提供生产级别的服务，就需要使用Apache和<a href="http://www.modwsgi.org/" target="_blank" rel="external"><code>mod_wsgi</code></a>。<br><code>mod_wsgi</code>有两种模式：embeded模式 和 daemon模式。</p>
+<p><code>mod_wsgi</code> 是一个 Apache 模块(module)，它可以搭载任何 Python WSGI 应用, 包括 Django. Django will work with any version of Apache which supports mod_wsgi.</p>
+<h2 id="使用Gunicorn"><a href="#使用Gunicorn" class="headerlink" title="使用Gunicorn"></a>使用Gunicorn</h2><h2 id="使用uWSGI"><a href="#使用uWSGI" class="headerlink" title="使用uWSGI"></a>使用uWSGI</h2><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ol>
+<li><a href="https://docs.djangoproject.com/en/1.11/topics/install/#install-apache-and-mod-wsgi" target="_blank" rel="external">https://docs.djangoproject.com/en/1.11/topics/install/#install-apache-and-mod-wsgi</a></li>
+<li><a href="https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/modwsgi/" target="_blank" rel="external">https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/modwsgi/</a></li>
 </ol>
 
       
@@ -406,18 +402,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
-          
-            <a href="/tags/debug/" rel="tag"># debug</a>
-          
-            <a href="/tags/tensorboard/" rel="tag"># tensorboard</a>
-          
-            <a href="/tags/batch-normalization/" rel="tag"># batch_normalization</a>
-          
-        </div>
-      
 
       
         
@@ -427,8 +411,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/24/deep-net-structures/" rel="next" title="深度网络结构">
-                <i class="fa fa-chevron-left"></i> 深度网络结构
+              <a href="/2018/04/04/django-model-intro-1/" rel="next" title="Django系列：1. Model的介绍">
+                <i class="fa fa-chevron-left"></i> Django系列：1. Model的介绍
               </a>
             
           </div>
@@ -436,10 +420,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/24/使用CTC进行序列化建模/" rel="prev" title="使用CTC进行序列建模">
-                使用CTC进行序列建模 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -568,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#将网络规则化"><span class="nav-number">1.</span> <span class="nav-text">将网络规则化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在我们关注的地方加入输出"><span class="nav-number">2.</span> <span class="nav-text">在我们关注的地方加入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察输出定位问题"><span class="nav-number">3.</span> <span class="nav-text">观察输出定位问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整"><span class="nav-number">4.</span> <span class="nav-text">调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变化的结果"><span class="nav-number">5.</span> <span class="nav-text">变化的结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仍然存在的问题"><span class="nav-number">6.</span> <span class="nav-text">仍然存在的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目侧准备"><span class="nav-number">1.</span> <span class="nav-text">项目侧准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Apache和mod-wsgi"><span class="nav-number">2.</span> <span class="nav-text">使用Apache和mod_wsgi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Gunicorn"><span class="nav-number">3.</span> <span class="nav-text">使用Gunicorn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用uWSGI"><span class="nav-number">4.</span> <span class="nav-text">使用uWSGI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
 
           </div>

@@ -98,7 +98,8 @@
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/handwriting_recognition.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/speech_recognition.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/naive_alignment.svg">
-<meta property="og:updated_time" content="2018-04-08T01:20:41.000Z">
+<meta property="og:image" content="https://distill.pub/2017/ctc/assets/ctc_alignment_steps.svg">
+<meta property="og:updated_time" content="2018-04-11T01:14:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用CTC进行序列建模">
 <meta name="twitter:description" content="介绍考虑语音识别问题。我们有音频剪辑的数据集以及对应的文字脚本。不幸的是，我们不知道文字脚本中的字符和音频如何对应起来。这使得训练一个语音识别器要比我们起初想象的要难。
@@ -385,6 +386,9 @@
 <p>这个方法存在两个问题：</p>
 <p>第一，它必须要每一个输入步都要对起到某些输出上，这不太合理。在语音识别方面，例如，输入可能会有没有对应输出的无声状态。</p>
 <p>第二，如果，在有一行中有多个字符的情况下，我们可能无法获得输出。考虑对齐$[h, h, e, l, l, l, o]$,合并重复的结果是”$helo$”而不是”$hello$”</p>
+<p>为了解决这个问题，CTC为输出引入了一个新的标识符。这个标识符有时被称作空白标识(blank token)。我们这里把它记做$\epsilon$。这个$\epsilon$标识符不对应任何输出，而只是简单地从输出中剔除。</p>
+<p>CTC允许的对齐选项和输出有相同的长度。所有的对齐选项，只要在合并重复以及剔除$\epsilon$后，与$Y$相同就是合法的：</p>
+<p><img src="https://distill.pub/2017/ctc/assets/ctc_alignment_steps.svg" style="border: none; display: block;margin-left: auto;margin-right: auto;"></p>
 <hr>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://distill.pub/2017/ctc/" target="_blank" rel="external">https://distill.pub/2017/ctc/</a></li>
@@ -509,7 +513,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -520,7 +524,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
