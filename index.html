@@ -367,7 +367,9 @@
       
         
           
-          Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since 
+          Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。
+项目侧准备Django的startproject管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改。
+使用Apache和mod_wsgi如果你对部署Django是新手，推荐首先使用mod_
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1558,7 +1560,7 @@ Inputs其实inputs 可以看成layer的一种特殊情况，但是由于它的�
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

@@ -87,16 +87,22 @@
 
 
 
-<meta name="description" content="Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a">
+<meta name="description" content="Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。
+项目侧准备Django的startproject管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改。
+使用Apache和mod_wsgi如果你对部署Django是新手，推荐首先使用mod_wsgi。在大多数情况下，它是最简单、最快速和最稳定的部署选择。Django包含一个轻量级的web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django系列：生产环境下django和wsgi">
 <meta property="og:url" content="http://kingease.github.io/2018/04/08/django-production/index.html">
 <meta property="og:site_name" content="都不重要">
-<meta property="og:description" content="Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a">
-<meta property="og:updated_time" content="2018-04-08T09:56:10.000Z">
+<meta property="og:description" content="Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。
+项目侧准备Django的startproject管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改。
+使用Apache和mod_wsgi如果你对部署Django是新手，推荐首先使用mod_wsgi。在大多数情况下，它是最简单、最快速和最稳定的部署选择。Django包含一个轻量级的web">
+<meta property="og:updated_time" content="2018-04-11T02:32:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django系列：生产环境下django和wsgi">
-<meta name="twitter:description" content="Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a">
+<meta name="twitter:description" content="Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。
+项目侧准备Django的startproject管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改。
+使用Apache和mod_wsgi如果你对部署Django是新手，推荐首先使用mod_wsgi。在大多数情况下，它是最简单、最快速和最稳定的部署选择。Django包含一个轻量级的web">
 
 
 
@@ -364,16 +370,18 @@
       
 
       
-        <p>Django’s chock-full of shortcuts to make Web developer’s lives easier, but all those tools are of no use if you can’t easily deploy your sites. Since Django’s inception, ease of deployment has been a major goal.</p>
-<p>Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。</p>
-<h2 id="项目侧准备"><a href="#项目侧准备" class="headerlink" title="项目侧准备"></a>项目侧准备</h2><p>Django’s startproject management command sets up a simple default WSGI configuration for you, which you can tweak as needed for your project, and direct any WSGI-compliant application server to use.<br>Django的<code>startproject</code>管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改</p>
-<h2 id="使用Apache和mod-wsgi"><a href="#使用Apache和mod-wsgi" class="headerlink" title="使用Apache和mod_wsgi"></a>使用Apache和<strong>mod_wsgi</strong></h2><p>如果你对部署Django是新手，推荐首先使用<code>mod_wsgi</code>。在大多数情况下，它是最简单、最快速和最稳定的部署选择。</p>
-<p>Django包含一个轻量级的web server，仅仅为了测试而用。所以，如果你不打算部署生产级别的Django，你不需要搭建Apache服务器。</p>
-<p>如果你想让Django提供生产级别的服务，就需要使用Apache和<a href="http://www.modwsgi.org/" target="_blank" rel="external"><code>mod_wsgi</code></a>。<br><code>mod_wsgi</code>有两种模式：embeded模式 和 daemon模式。</p>
-<p><code>mod_wsgi</code> 是一个 Apache 模块(module)，它可以搭载任何 Python WSGI 应用, 包括 Django. Django will work with any version of Apache which supports mod_wsgi.</p>
-<h2 id="使用Gunicorn"><a href="#使用Gunicorn" class="headerlink" title="使用Gunicorn"></a>使用Gunicorn</h2><h2 id="使用uWSGI"><a href="#使用uWSGI" class="headerlink" title="使用uWSGI"></a>使用uWSGI</h2><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ol>
+        <p>Django主要的部署平台是WSGI, 在web服务和应用方面的python标准。</p>
+<h2 id="项目侧准备"><a href="#项目侧准备" class="headerlink" title="项目侧准备"></a>项目侧准备</h2><p>Django的<code>startproject</code>管理命令生成了一个默认的WSGI配置文件，可以根据project的需要进行修改。</p>
+<h2 id="使用Apache和mod-wsgi"><a href="#使用Apache和mod-wsgi" class="headerlink" title="使用Apache和mod_wsgi"></a>使用Apache和<strong>mod_wsgi</strong></h2><p>如果你对部署Django是新手，推荐首先使用<code>mod_wsgi</code>。在大多数情况下，它是最简单、最快速和最稳定的部署选择。<br>Django包含一个轻量级的web server，仅仅为了测试而用。所以，如果你不打算部署生产级别的Django，你不需要搭建Apache服务器。</p>
+<p>如果你想让Django提供生产级别的服务，就需要使用Apache和<a href="http://www.modwsgi.org/" target="_blank" rel="external"><code>mod_wsgi</code></a>。<br><code>mod_wsgi</code>有两种模式：embeded模式 和 daemon模式。<br><code>mod_wsgi</code> 是一个 Apache 模块(module)，它可以搭载任何 Python WSGI 应用, 包括 Django。</p>
+<h3 id="安装和激活mod-wsgi"><a href="#安装和激活mod-wsgi" class="headerlink" title="安装和激活mod_wsgi"></a>安装和激活<strong>mod_wsgi</strong></h3><h3 id="Apache的基本设置"><a href="#Apache的基本设置" class="headerlink" title="Apache的基本设置"></a>Apache的基本设置</h3><p>一旦你安装并激活<code>mod_wsgi</code>，就可以编辑你的Apache服务的<code>httpd.conf</code>文件，添加以下的配置。如果你使用的Apache版本老于2.4，请将下面配置中<strong><code>Require all granted</code></strong>换成<strong><code>Allow from all</code></strong>并在<em>上</em>面增加一行<strong><code>Order deny,allow</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">WSGIScriptAlias / /path/to/mysite.com/mysite/wsgi.py</div><div class="line">WSGIPythonHome /path/to/venv</div><div class="line">WSGIPythonPath /path/to/mysite.com</div><div class="line"></div><div class="line">&lt;Directory /path/to/mysite.com/mysite&gt;</div><div class="line">&lt;Files wsgi.py&gt;</div><div class="line">Require all granted</div><div class="line">&lt;/Files&gt;</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure>
+<h2 id="使用Gunicorn"><a href="#使用Gunicorn" class="headerlink" title="使用Gunicorn"></a>使用Gunicorn</h2><p>安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install gunicorn</div></pre></td></tr></table></figure></p>
+<h3 id="使用异步的workers"><a href="#使用异步的workers" class="headerlink" title="使用异步的workers"></a>使用异步的workers</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pip install greenlet</div><div class="line">pip install gevent</div><div class="line">pip install gunicorn[gevent]</div></pre></td></tr></table></figure>
+<h2 id="使用uWSGI"><a href="#使用uWSGI" class="headerlink" title="使用uWSGI"></a>使用uWSGI</h2><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ol>
 <li><a href="https://docs.djangoproject.com/en/1.11/topics/install/#install-apache-and-mod-wsgi" target="_blank" rel="external">https://docs.djangoproject.com/en/1.11/topics/install/#install-apache-and-mod-wsgi</a></li>
 <li><a href="https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/modwsgi/" target="_blank" rel="external">https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/modwsgi/</a></li>
+<li><a href="https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/" target="_blank" rel="external">https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/</a></li>
 </ol>
 
       
@@ -502,7 +510,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -548,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目侧准备"><span class="nav-number">1.</span> <span class="nav-text">项目侧准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Apache和mod-wsgi"><span class="nav-number">2.</span> <span class="nav-text">使用Apache和mod_wsgi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Gunicorn"><span class="nav-number">3.</span> <span class="nav-text">使用Gunicorn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用uWSGI"><span class="nav-number">4.</span> <span class="nav-text">使用uWSGI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目侧准备"><span class="nav-number">1.</span> <span class="nav-text">项目侧准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Apache和mod-wsgi"><span class="nav-number">2.</span> <span class="nav-text">使用Apache和mod_wsgi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装和激活mod-wsgi"><span class="nav-number">2.1.</span> <span class="nav-text">安装和激活mod_wsgi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache的基本设置"><span class="nav-number">2.2.</span> <span class="nav-text">Apache的基本设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Gunicorn"><span class="nav-number">3.</span> <span class="nav-text">使用Gunicorn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用异步的workers"><span class="nav-number">3.1.</span> <span class="nav-text">使用异步的workers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用uWSGI"><span class="nav-number">4.</span> <span class="nav-text">使用uWSGI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
 
           </div>
