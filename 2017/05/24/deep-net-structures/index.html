@@ -399,7 +399,7 @@ Inputs其实inputs 可以看成layer的一种特殊情况，但是由于它的�
 </li>
 </ol>
 <h2 id="ModelLayers"><a href="#ModelLayers" class="headerlink" title="ModelLayers"></a>ModelLayers</h2><p>构成 graph 的基础构件，常用的 layer 的概念有：</p>
-<ol start="2">
+<ol>
 <li>dense/fully-connected layer (activation=None/RELU/sigmoid)</li>
 <li>reshape layer</li>
 <li>drop layer (istraining)</li>
@@ -437,7 +437,7 @@ Inputs其实inputs 可以看成layer的一种特殊情况，但是由于它的�
 <li>再将 <code>t2 = tf.layers.dense(t1, num_classes, activation=None)</code></li>
 <li>最后 <code>t3 = tf.reshape(t2, [batch_size, max_time, num_classes])</code></li>
 </ol>
-<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><ol start="2">
+<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><ol>
 <li>cross entrophy</li>
 <li>ctc </li>
 </ol>

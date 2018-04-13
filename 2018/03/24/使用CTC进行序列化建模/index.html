@@ -99,7 +99,8 @@
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/speech_recognition.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/naive_alignment.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/ctc_alignment_steps.svg">
-<meta property="og:updated_time" content="2018-04-12T01:25:42.000Z">
+<meta property="og:image" content="https://distill.pub/2017/ctc/assets/valid_invalid_alignments.svg">
+<meta property="og:updated_time" content="2018-04-13T01:38:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用CTC进行序列建模">
 <meta name="twitter:description" content="介绍考虑语音识别问题。我们有音频剪辑的数据集以及对应的文字脚本。不幸的是，我们不知道文字脚本中的字符和音频如何对应起来。这使得训练一个语音识别器要比我们起初想象的要难。
@@ -377,8 +378,8 @@
 <p>CTC 算法可以解决上述问题。例如给定$X$，它可以给出$\lbrace Y \rbrace$中所有$Y$的概率。我们可用这个分布推断一个可能的输出或者给出指定某个结果的概率。</p>
 <p>并不是所有计算损失函数(loss function)以及进行预测(inference)都是简单易行的。我们希望CTC可以在两方面都能有高效的表现。</p>
 <p><strong>损失函数</strong>: 对给定的输入，我们希望训练一个模型使得正确的结果拥有最大的概率。为了实现目标，我们需要高效的计算条件概率$p(Y|X)$。并且函数$p(Y|X)$也应当可微，方便我们使用梯度下降进行求解。</p>
-<p><strong>推断</strong>: 在我们训练得到模型后，我们用它根据输入$X$推断一个可能的的$Y$。这意味需要求解:<br>$$ Y^* = \arg\max_Y p(Y|X)$$</p>
-<p>理想情况下，有CTC的帮助，我们通过求解一个不太消耗的问题，就可以得到期望的$Y^*$。</p>
+<p><strong>推断</strong>: 在我们训练得到模型后，我们用它根据输入$X$推断一个可能的的$Y$。这意味需要求解:</p>
+<script type="math/tex; mode=display">Y^* = \arg\max_Y p(Y|X)</script><p>理想情况下，有CTC的帮助，我们通过求解一个不太消耗的问题，就可以得到期望的$Y^*$。</p>
 <hr>
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>对给定的$X$，CTC算法可以给出任意$Y$的概率值。CTC计算概率的关键是考虑输入和输出间如何进行对齐。我们先探讨如何进行对齐，然后再说明如何使用对齐的概念来计算损失函数以及进行推断的。</p>
 <h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p>CTC算法是不需要输入和输出数据间的对齐信息。但是，要在给定的输入下给出一个输出的概率， CTC需要累加所有输入输出可能的对齐操作的概率。我们需要知道对齐的概念最终帮助我们理解损失函数是如何计算的。</p>
@@ -396,7 +397,15 @@
 </ol>
 <p>如果$Y$在一行中有两个相同的字符，那么有效的对齐在它俩中间一定会有一个$\epsilon$。在这个规则的帮助下，我们可以区分”hello”和”helo”两者间不同的对齐选项的区别。</p>
 <p>让我们看一个例子，长度为6的输入，输出为$[c,a,t]$。下面有有效和无效的对齐选项的样例：</p>
+<p><img src="https://distill.pub/2017/ctc/assets/valid_invalid_alignments.svg" style="border: none; display: block;margin-left: auto;margin-right: auto;"></p>
 <hr>
+<p>无效对齐的情形：</p>
+<ol>
+<li>对应的$Y=[c,c,a,t]$</li>
+<li>长度为5</li>
+<li>缺少’a’</li>
+</ol>
+<p>CTC对齐有些非常好的特性。首先，$X$和$Y$间允许的对齐是单调的。当从一个输入变到另外一个输入，输出可能会保持不变。第二个属性是反之亦然。它意味着第三个属性：$Y$的长度不会超过$X$长度。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://distill.pub/2017/ctc/" target="_blank" rel="external">https://distill.pub/2017/ctc/</a></li>
 </ol>

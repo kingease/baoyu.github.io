@@ -368,7 +368,11 @@
 <p>模型终于在迭代的过程中出现变化。<br>有一篇文章在说这个问题。<a href="https://r2rt.com/implementing-batch-normalization-in-tensorflow.html" target="_blank" rel="external">https://r2rt.com/implementing-batch-normalization-in-tensorflow.html</a></p>
 <p>training == True: normalized with statistics of the current batch<br>training == False: normalized with <code>moving statistics</code></p>
 <p>三个不同的输入</p>
-<p><figure style="display: flex;"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage4.png"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage5.png"><br>    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage6.png"><br></figure><br>RNN层的输出变成这个样子：<br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage1.png?imageMogr2/thumbnail/350x" alt="rnn output image 1"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage2.png?imageMogr2/thumbnail/350x" alt="rnn output image 2"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x" alt="rnn output image 3"></p>
+<p><figure style="display: flex;">
+    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage4.png">
+    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage5.png">
+    <img style="margin: 20px;" src="http://oor53bfqy.bkt.clouddn.com/individualImage6.png">
+</figure><br>RNN层的输出变成这个样子：<br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage1.png?imageMogr2/thumbnail/350x" alt="rnn output image 1"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage2.png?imageMogr2/thumbnail/350x" alt="rnn output image 2"><br><img src="http://oor53bfqy.bkt.clouddn.com/individualImage3.png?imageMogr2/thumbnail/350x" alt="rnn output image 3"></p>
 <h2 id="变化的结果"><a href="#变化的结果" class="headerlink" title="变化的结果"></a>变化的结果</h2><p>在迭代数个周期后，终于有了效果：cost开始减少, 呈现收敛的状态。<br><img src="http://oor53bfqy.bkt.clouddn.com/cost-curve.png" alt="cost decrease"></p>
 <p>error 也逐渐变得很小，也就是正确率可以变得很高。<br><img src="http://oor53bfqy.bkt.clouddn.com/error-curve.png" alt="error decrease"></p>
 <h2 id="仍然存在的问题"><a href="#仍然存在的问题" class="headerlink" title="仍然存在的问题"></a>仍然存在的问题</h2><ol>
