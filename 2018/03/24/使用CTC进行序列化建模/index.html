@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/ctc_alignment_steps.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/valid_invalid_alignments.svg">
 <meta property="og:image" content="https://distill.pub/2017/ctc/assets/full_collapse_from_audio.svg">
-<meta property="og:updated_time" content="2018-04-17T01:17:57.000Z">
+<meta property="og:updated_time" content="2018-04-17T01:31:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用CTC进行序列建模">
 <meta name="twitter:description" content="介绍考虑语音识别问题。我们有音频剪辑的数据集以及对应的文字脚本。不幸的是，我们不知道文字脚本中的字符和音频如何对应起来。这使得训练一个语音识别器要比我们起初想象的要难。
@@ -408,6 +408,13 @@
 <p>CTC对齐有些非常好的特性。首先，$X$和$Y$间允许的对齐是单调的。当从一个输入变到另外一个输入，输出可能会保持不变。第二个属性是反之亦然。它意味着第三个属性：$Y$的长度不会超过$X$长度。</p>
 <h3 id="损失函数（loss-function）"><a href="#损失函数（loss-function）" class="headerlink" title="损失函数（loss function）"></a>损失函数（loss function）</h3><p>CTC对齐方法给我们一个自然的方式可以从每一步的概率得到整个输出序列的概率。</p>
 <p><img src="https://distill.pub/2017/ctc/assets/full_collapse_from_audio.svg" style="border: none; display: block;margin-left: auto;margin-right: auto;"></p>
+<ol>
+<li>我们从一个输入序列开始，比如音频的声谱</li>
+<li>输入经过一个RNN处理</li>
+<li>神经网络给出$p_t(a|X)$, 它是对输入的每一步的输出在$\lbrace h, e, l, o \epsilon, \rbrace$上的分布。</li>
+<li>有了每一步的概率，我们可以计算不同序列的概率。</li>
+<li>剔除重复和空白字符，得到输出的分布。</li>
+</ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://distill.pub/2017/ctc/" target="_blank" rel="external">https://distill.pub/2017/ctc/</a></li>
 </ol>
