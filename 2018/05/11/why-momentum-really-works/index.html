@@ -79,16 +79,19 @@
 
 
 
-<meta name="description" content="关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。">
+<meta name="description" content="关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。
+这个标准故事并不错，但是它没有能够解释momentum的许多重要的特性。事实上，如果我们在更好的模型上去研究它，momentum可以更准确地被理解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么 momentum 有效">
 <meta property="og:url" content="http://kingease.github.io/2018/05/11/why-momentum-really-works/index.html">
 <meta property="og:site_name" content="都不重要">
-<meta property="og:description" content="关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。">
-<meta property="og:updated_time" content="2018-05-11T10:36:56.000Z">
+<meta property="og:description" content="关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。
+这个标准故事并不错，但是它没有能够解释momentum的许多重要的特性。事实上，如果我们在更好的模型上去研究它，momentum可以更准确地被理解。">
+<meta property="og:updated_time" content="2018-05-23T12:28:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么 momentum 有效">
-<meta name="twitter:description" content="关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。">
+<meta name="twitter:description" content="关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。
+这个标准故事并不错，但是它没有能够解释momentum的许多重要的特性。事实上，如果我们在更好的模型上去研究它，momentum可以更准确地被理解。">
 
 
 
@@ -340,6 +343,15 @@
 
       
         <p>关于momentum有很多故事：梯度下降好比下山。我们寻找最陡峭的路径，他的进程很缓慢，但是很稳定。Momentum就像一个很重的球从小山上滚落。惯性在这个过程中扮演平衡和加速的角色，它可以抑制波动，可以帮助越过窄的山谷，小的土坡，和局部的极小值。</p>
+<p>这个标准故事并不错，但是它没有能够解释momentum的许多重要的特性。事实上，如果我们在更好的模型上去研究它，momentum可以更准确地被理解。</p>
+<p>一个好的模型是凸二次型。这个模型可以很好地再现momentum在现实问题中在局部中变化过程，同时它有闭式解，足够简单，容易理解。这些都可以帮助我们理解这个算法。</p>
+<hr>
+<p>我们从梯度下降开始。这个算法有很多有点，但速度不在其中。它很简单–当被优化的函数是光滑的，我们在梯度方向上走很小的一步<br>$$<br>w^{k+1} = w^{k} - \alpha\nabla f(w^k)<br>$$<br>对步长足够小，梯度下降会在每次迭代过程中做的单调的前进。它总是会收敛，尽管可能是一个局部极小值。在一些小曲率的地方，它甚至可以以指数的速率陷入其中。<em>[想想为什么是指数速率?]</em></p>
+<p>但是，这只是从理论角度看，指数级下降非常吸引人的表现。但实际上下降的速度会可能非常的小，经常小的令人恼火。在求解的过程中，事情起初进展的不错–损失函数迅速的大幅下降。但随着迭代的进行，进展开始变得缓慢。甚至你开始有抱怨和怀疑，觉得不应该按这种速度前进，是不是哪里出错了？</p>
+<p>这个问题可能是优化算子(optimizer)的老敌人–病态曲率(pathological curvature)–造成的。简单地说，病态曲率就是$f$没有很好的去除抖动的地方。 就像山谷、壕沟、河道和沟壑。迭代要么跳过山谷，要么到达局部最优点。</p>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ol>
+<li><a href="https://distill.pub/2017/momentum/" target="_blank" rel="external">https://distill.pub/2017/momentum/</a></li>
+</ol>
 
       
     </div>
@@ -434,8 +446,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -495,6 +516,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
